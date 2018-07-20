@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/jquery1-11-3.min.js"></script>
+<script src="js/bootstrap3-3-5.min.js"></script>
+<title>GRIFFIN angular correlation coefficients</title>
+</head>
+<body>
+
+<table align="center">
+<tr><td align="center">
+<h3>GRIFFIN angular correlation coefficients</h3>
+</td></tr>
+</table>
+
+<table align="center" border=1 style="background-color:red">
+<tr><td style="background-color:white">
+<h4>These coefficients have only been confirmed for the following experimental conditions:</h4>
+<ul>
+<li> 16 clovers </li>
+<li> All clovers at 11 cm </li>
+<li> No suppressors </li>
+<li> No Delrin </li>
+<li> Upstream SCEPTAR </li>
+<li> Downstream SCEPTAR </li>
+<li> No addback </li>
+<li> No grouping </li>
+<li> With or without folding </li>
+</ul>
+Use these coefficients for other applications at your own risk.
+</td></tr>
+</table>
+
+<table align="center">
+<tr><td align="center">
+<label for="energy1" class="right inline"><b>Energy 1 (keV):</b></label>
+<input type="number" id="energy1" onchange="UpdateCoeffs()">
+</td></tr>
+<tr><td align="center">
+<label for="energy2" class="right inline"><b>Energy 2 (keV):</b></label>
+<input type="number" id="energy2" onchange="UpdateCoeffs()">
+</td></tr>
+<tr><td>
+(Thank you for your patience - this takes a few seconds to process.)
+</td></tr>
+</table>
+
+<table align="center">
+<tr>
+<td><p id="usedenergies"></p></td>
+</tr>
+</table>
+<table align="center" border=1>
+<tr>
+<td></td>
+<td> Value </td>
+<td> 1 sigma </td>
+<td> 2 sigma </td>
+</tr>
+<tr>
+<td>Beta:</td>
+<td><p id="beta_value"></p></td>
+<td><p id="beta_1s"</p></td>
+<td><p id="beta_2s"</p></td>
+</tr>
+<tr>
+<td>Gamma:</td>
+<td><p id="gamma_value"></p></td>
+<td><p id="gamma_1s"</p></td>
+<td><p id="gamma_2s"</p></td>
+</tr>
+<tr>
+</tr>
+</table>
+<div id="notes"></div>
+
+<script>
+function UpdateCoeffs() {
+var e1 = document.getElementById("energy1").value;
+var e2 = document.getElementById("energy2").value;
+e1 = Math.round(e1/5)*5;
+e2 = Math.round(e2/5)*5;
+document.getElementById("usedenergies").innerHTML = "For energies "+e1+" keV and "+e2+" keV.";
+
+document.getElementById("beta_value").innerHTML = "";
+document.getElementById("beta_1s").innerHTML = "";
+document.getElementById("beta_2s").innerHTML = "";
+document.getElementById("gamma_value").innerHTML = "";
+document.getElementById("gamma_1s").innerHTML = "";
+document.getElementById("gamma_2s").innerHTML = "";
+
+$.get("data/ciGridBeta.dat",function(data,status){
+   var lines = data.split("\n");
+   var wantedline;
+   for (var i=0;i<lines.length;i++) {
+      lines[i] = lines[i].split(/[ ,\t]+/);
+      if (lines[i][0]==e1 && lines[i][1]==e2) {
+         document.getElementById("beta_value").innerHTML = lines[i][2];
+         document.getElementById("beta_1s").innerHTML = lines[i][3];
+         document.getElementById("beta_2s").innerHTML = lines[i][4];
+      }
+   }
+});
+
+$.get("data/ciGridGamma.dat",function(data,status){
+   var lines = data.split("\n");
+   var wantedline;
+   for (var i=0;i<lines.length;i++) {
+      lines[i] = lines[i].split(/[ ,\t]+/);
+      if (lines[i][0]==e1 && lines[i][1]==e2) {
+         document.getElementById("gamma_value").innerHTML = lines[i][2];
+         document.getElementById("gamma_1s").innerHTML = lines[i][3];
+         document.getElementById("gamma_2s").innerHTML = lines[i][4];
+      }
+   }
+});
+
+}
+</script>
+
+</body>
+</html>
