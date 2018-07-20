@@ -89,7 +89,7 @@ document.getElementById("gamma_value").innerHTML = "";
 document.getElementById("gamma_1s").innerHTML = "";
 document.getElementById("gamma_2s").innerHTML = "";
 
-$.get("data/ciGridBeta.dat",function(data,status){
+$.get("data/dividedBeta/ciGridBeta"+e1+".dat",function(data,status){
    var lines = data.split("\n");
    document.getElementById("notes").innerHTML = "Beta lines split.";
    var wantedline;
@@ -104,7 +104,7 @@ $.get("data/ciGridBeta.dat",function(data,status){
    }
 });
 
-$.get("data/ciGridGamma.dat",function(data,status){
+$.get("data/dividedGamma/ciGridGamma"+e1+".dat",function(data,status){
    var lines = data.split("\n");
    document.getElementById("notes").innerHTML += "Gamma lines split.";
    var wantedline;
