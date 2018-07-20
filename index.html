@@ -104,7 +104,9 @@ $.get("data/dividedBeta/ciGridBeta"+e1+".dat",function(data,status){
    }
 });
 
+
 $.get("data/dividedGamma/ciGridGamma"+e1+".dat",function(data,status){
+   document.getElementById("notes").innerHTML += " Beta done. "
    var lines = data.split("\n");
    document.getElementById("notes").innerHTML += "Gamma lines split.";
    var wantedline;
