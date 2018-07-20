@@ -89,7 +89,7 @@ document.getElementById("gamma_value").innerHTML = "";
 document.getElementById("gamma_1s").innerHTML = "";
 document.getElementById("gamma_2s").innerHTML = "";
 
-$.get("data/ciGridBeta.dat",function(data,status){
+$.get("https://smithjk.github.io/AngularCorrelationCoefficients/data/ciGridBeta.dat",function(data,status){
    var lines = data.split("\n");
    var wantedline;
    for (var i=0;i<lines.length;i++) {
@@ -102,7 +102,7 @@ $.get("data/ciGridBeta.dat",function(data,status){
    }
 });
 
-$.get("data/ciGridGamma.dat",function(data,status){
+$.get("https://smithjk.github.io/AngularCorrelationCoefficients/data/ciGridGamma.dat",function(data,status){
    var lines = data.split("\n");
    var wantedline;
    for (var i=0;i<lines.length;i++) {
